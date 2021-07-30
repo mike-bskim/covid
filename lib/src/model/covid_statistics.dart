@@ -87,7 +87,7 @@ class Covid19StatisticsModel {
     calcClearCnt = clearCnt! - beforeCnt;
   }
 
-  String get standDayString => '${DataUtils.simpleDayFormat(stateDt!)} $stateTime 기준';
+  String get standDayString => stateDt==null ? '' : '${DataUtils.simpleDayFormat(stateDt!)} $stateTime 기준';
 
 }
 

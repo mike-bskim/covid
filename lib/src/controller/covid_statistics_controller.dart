@@ -9,6 +9,7 @@ class CovidStatisticsController extends GetxController {
   CovidStatisticsRepository? _covidStatisticsRepository;
   Rx<Covid19StatisticsModel> _todayData = Covid19StatisticsModel().obs;
   RxList<Covid19StatisticsModel> _weekDatas = <Covid19StatisticsModel>[].obs;
+  double maxDecideValue = 0;
 
   @override
   void onInit() {
@@ -19,22 +20,26 @@ class CovidStatisticsController extends GetxController {
   }
 
   void fetchCovidState() async {
-    var sDate = DateFormat('yyyyMMdd').format(DateTime.now().subtract(Duration(days: 8)));
+    var sDate = DateFormat('yyyyMMdd').format(DateTime.now().subtract(Duration(days: 7)));
     var eDate = DateFormat('yyyyMMdd').format(DateTime.now());
     var results = await _covidStatisticsRepository!.fetchCovidStatistics(sDate: sDate, eDate: eDate);
     if (results.isNotEmpty) {
       for(var i=0; i<results.length; i++){
         if(i<results.length-1) {
           results[i].updateCalcAboutYesterday(results[i+1]);
+          if (maxDecideValue < results[i].calcDecideCnt){
+            maxDecideValue = results[i].calcDecideCnt;
+          }
         }
       }
-      _weekDatas.addAll(results.sublist(0, results.length-1));
-      _todayData(_weekDatas.first);
-//      print(_weekDatas);
+      _weekDatas.addAll(results.sublist(0, results.length-1).reversed);
+      _todayData(_weekDatas.last);
+      print('maxDecideValue: $maxDecideValue');
     }
   }
 
   Covid19StatisticsModel get todayData => _todayData.value; // ?? Covid19StatisticsModel.empty();
+  List<Covid19StatisticsModel> get weekDatas => _weekDatas;
 
   ArrowDirection calcDirection(double cnt) {
     if (cnt > 0) {
