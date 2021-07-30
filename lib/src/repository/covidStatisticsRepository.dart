@@ -11,7 +11,7 @@ class CovidStatisticsRepository {
         baseUrl: "http://openapi.data.go.kr",
         queryParameters: {
           'ServiceKey':
-            '개인키값',
+            '개인키 값',
         },
       ),
     );
