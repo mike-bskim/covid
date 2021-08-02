@@ -81,6 +81,7 @@ class App extends GetView<CovidStatisticsController> {
         ? Center(child: CircularProgressIndicator())
         : Row(
             children: [
+              // 격리해제
               Expanded(
                 child: CovidStatisticsViewer(
                   title: '격리해제',
@@ -90,6 +91,7 @@ class App extends GetView<CovidStatisticsController> {
                   dense: true,
                 ),
               ),
+              // 격리 라인
               Container(
                 height: 60,
                 child: VerticalDivider(
@@ -97,6 +99,7 @@ class App extends GetView<CovidStatisticsController> {
                   thickness: 1,
                 ),
               ),
+              // 검사중
               Expanded(
                 child: CovidStatisticsViewer(
                   title: '검사중',
@@ -106,6 +109,7 @@ class App extends GetView<CovidStatisticsController> {
                   dense: true,
                 ),
               ),
+              // 격리 라인
               Container(
                 height: 60,
                 child: VerticalDivider(
@@ -113,6 +117,7 @@ class App extends GetView<CovidStatisticsController> {
                   thickness: 1,
                 ),
               ),
+              // 사망자
               Expanded(
                 child: CovidStatisticsViewer(
                   title: '사망자',
@@ -134,6 +139,7 @@ class App extends GetView<CovidStatisticsController> {
           '확진자 추이',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
+        // 차트 위젯
         AspectRatio(
           aspectRatio: 1.5,
           child: Card(
@@ -181,9 +187,10 @@ class App extends GetView<CovidStatisticsController> {
           )
         ],
       ),
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: true, // 앱바위로 body 가 올라옴
       body: Stack(
         children: <Widget>[
+          // 배경관련 위젯
           ..._background(headerTopZone),
           Positioned(
             top: headerTopZone + 200,
@@ -218,47 +225,47 @@ class App extends GetView<CovidStatisticsController> {
     );
   }
 
-  Widget infoWidget(String? title, String? value) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Text(
-            '$title : ',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          Text(
-            '$value',
-            style: TextStyle(fontSize: 15),
-          ),
-        ],
-      ),
-    );
-  }
+//  Widget infoWidget(String? title, String? value) {
+//    return Padding(
+//      padding: const EdgeInsets.all(8.0),
+//      child: Row(
+//        children: [
+//          Text(
+//            '$title : ',
+//            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+//          ),
+//          Text(
+//            '$value',
+//            style: TextStyle(fontSize: 15),
+//          ),
+//        ],
+//      ),
+//    );
+//  }
 }
 
-class InfoWidget extends StatelessWidget {
-  final title;
-  final value;
-
-  const InfoWidget(this.title, this.value);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Text(
-            '$title : ',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          Text(
-            '$value',
-            style: TextStyle(fontSize: 15),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//class InfoWidget extends StatelessWidget {
+//  final title;
+//  final value;
+//
+//  const InfoWidget(this.title, this.value);
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    return Padding(
+//      padding: const EdgeInsets.all(8.0),
+//      child: Row(
+//        children: [
+//          Text(
+//            '$title : ',
+//            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+//          ),
+//          Text(
+//            '$value',
+//            style: TextStyle(fontSize: 15),
+//          ),
+//        ],
+//      ),
+//    );
+//  }
+//}
